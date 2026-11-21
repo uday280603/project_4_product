@@ -1,0 +1,62 @@
+<mat-card>
+  <mat-card-content>
+    <form (submit)="addProduct($event)">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Product Name</mat-label>
+        <input type="text" matInput [formField]="productForm.name" />
+        @if (productForm.name().touched() && productForm.name().invalid()) {
+          @for (error of productForm.name().errors(); track error) {
+            <strong class="text-danger text-sm">
+              {{ error.message }}
+            </strong>
+          }
+        }
+      </mat-form-field>
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select matInput [formField]="productForm.category">
+          <mat-option value="ELECTRONIC">ELECTRONIC</mat-option>
+          <mat-option value="FOOD">FOOD</mat-option>
+          <mat-option value="COSMATIC">COSMATIC</mat-option>
+          <mat-option value="CLOTH">CLOTH</mat-option>
+          <mat-option value="FOOTWARE">FOOTWARE</mat-option>
+          <mat-option value="OTHER">OTHER</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Price</mat-label>
+        <input matInput [formField]="productForm.price" />
+        @if (productForm.price().invalid() && productForm.price().touched()) {
+          @for (error of productForm.price().errors(); track error) {
+            <strong class="text-danger text-sm">
+              {{ error.message }}
+            </strong>
+          }
+        }
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Expire In</mat-label>
+        <mat-select matInput [formField]="productForm.expYear">
+          <mat-option [value]="2026">2026</mat-option>
+          <mat-option [value]="2027">2027</mat-option>
+          <mat-option [value]="2028">2028</mat-option>
+          <mat-option [value]="2029">2029</mat-option>
+          <mat-option [value]="2030">2030</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Is Available</mat-label>
+        <mat-select matInput [formField]="productForm.isAvailable">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      @if (!isInEditMode) {
+        <button mat-raised-button class="w-100" type="submit">Add Product</button>
+      } @else {
+        <button mat-raised-button class="w-100" type="button" (click)="onUpdateProduct()">Update Product</button>
+      }
+    </form>
+  </mat-card-content>
+</mat-card>
